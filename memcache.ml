@@ -16,7 +16,7 @@
  * Copyright 2010 Alexander Markov *)
 
 open Lwt
-open ExtLib
+open Batteries
 open Scanf
 open Printf
 
