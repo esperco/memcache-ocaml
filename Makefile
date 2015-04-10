@@ -77,7 +77,7 @@ clean:
 	-rm -f *.cm[ioxa] *.cmx[as] *.o *.a *~
 	-rm -f .depend
 	-rm -rf doc
-	-rm -f META test test.opt
+	-rm -f META META.bak test test.opt
 	-rm -f benchmark benchmark.opt
 
 depend: .depend
