@@ -29,12 +29,12 @@ benchmarks: byte native benchmark.ml
 
 META: META.in VERSION
 	cp $< $@
-	sed "s/_NAME_/$(LIBNAME)/" -i $@
-	sed "s/_VERSION_/$(VERSION)/" -i $@
-	sed "s/_REQUIRES_/$(PACKAGES)/" -i $@
-	sed "s/_BYTE_/$(CMA)/" -i $@
-	sed "s/_NATIVE_/$(CMXA)/" -i $@
-	sed "s/_SHARED_/$(CMXS)/" -i $@
+	sed -i.bak "s/_NAME_/$(LIBNAME)/" $@
+	sed -i.bak "s/_VERSION_/$(VERSION)/" $@
+	sed -i.bak "s/_REQUIRES_/$(PACKAGES)/" $@
+	sed -i.bak "s/_BYTE_/$(CMA)/" $@
+	sed -i.bak "s/_NATIVE_/$(CMXA)/" $@
+	sed -i.bak "s/_SHARED_/$(CMXS)/" $@
 
 byte: depend $(CMA) META
 
