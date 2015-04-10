@@ -1,0 +1,8 @@
+name = "_NAME_"
+version = "_VERSION_"
+description = "memcached support"
+requires = "_REQUIRES_"
+archive(byte)="_BYTE_"
+archive(native)="_NATIVE_"
+archive(plugin,byte)="_BYTE_"
+archive(plugin,native)="_SHARED_"
