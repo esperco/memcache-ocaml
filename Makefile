@@ -14,7 +14,7 @@ OBJS    = $(FILES:.ml=.cmo)
 OPTOBJS = $(FILES:.ml=.cmx)
 
 CMA  = $(LIBNAME).cma
-CMA  = $(LIBNAME).cmi
+CMI  = $(LIBNAME).cmi
 CMXA = $(LIBNAME).cmxa
 CMXS = $(LIBNAME).cmxs
 
@@ -53,7 +53,7 @@ $(CMXS): $(OPTOBJS)
 	$(CAMLOPT) -shared -o $(CMXS) $(OPTOBJS)
 
 install:
-	ocamlfind install $(LIBNAME) META $(CMI) $(CMA) $(CMXA) $(CMXS) $(wildcard *.a)
+	ocamlfind install $(LIBNAME) META $(CMA) $(CMI) $(CMXA) $(CMXS) $(wildcard *.a)
 
 uninstall:
 	ocamlfind remove $(LIBNAME)
