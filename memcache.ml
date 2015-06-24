@@ -57,7 +57,13 @@ type connection = {
 }
 
 let open_connection hostname port =
-  Lwt_lib.gethostbyname hostname >>= fun haddr ->
+  catch
+    (fun () -> Lwt_lib.gethostbyname hostname)
+    (function
+      | Not_found -> raise (Failure ("Cannot resolve host name: " ^ hostname))
+      | e -> raise e
+    )
+  >>= fun haddr ->
   Lwt_io.open_connection (Unix.ADDR_INET (haddr.Unix.h_addr_list.(0), port)) >>= fun (input, output) ->
   return {
     hostname = hostname;
