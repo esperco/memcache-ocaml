@@ -52,23 +52,33 @@ let unexpected_reply s =
 type connection = {
   hostname : string;
   port     : int;
+  fd       : Lwt_unix.file_descr;
   input    : Lwt_io.input_channel;
   output   : Lwt_io.output_channel;
 }
 
 let open_connection hostname port =
   Lwt_lib.gethostbyname hostname >>= fun haddr ->
-  Lwt_io.open_connection (Unix.ADDR_INET (haddr.Unix.h_addr_list.(0), port)) >>= fun (input, output) ->
+  let sockaddr = Unix.ADDR_INET (haddr.Unix.h_addr_list.(0), port) in
+  let fd =
+    Lwt_unix.socket (Unix.domain_of_sockaddr sockaddr) Unix.SOCK_STREAM 0
+  in
+  Lwt_io.open_connection ~fd sockaddr >>= fun (input, output) ->
   return {
     hostname = hostname;
     port     = port;
+    fd       = fd;
     input    = input;
     output   = output;
   }
 
 let close_connection self =
-  Lwt_io.close self.input >>= fun () ->
-  Lwt_io.close self.output
+  (* Close the file descriptor directly without trying to flush buffered
+     output nor going through a socket shutdown.
+     We're trying to see if this prevents half-closed connections
+     (closed and acknowledged by the server but not closed by the server yet).
+  *)
+  Lwt_unix.close self.fd
 
 let recv_line self =
   Lwt_io.read_line self.input
