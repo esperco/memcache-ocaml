@@ -58,7 +58,7 @@ type connection = {
 
 let open_connection hostname port =
   catch
-    (fun () -> Lwt_lib.gethostbyname hostname)
+    (fun () -> Lwt_unix.gethostbyname hostname)
     (function
       | Not_found -> raise (Failure ("Cannot resolve host name: " ^ hostname))
       | e -> raise e

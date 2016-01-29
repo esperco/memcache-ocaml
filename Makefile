@@ -1,4 +1,4 @@
-PACKAGES = lwt,lwt.unix,lwt.extra,batteries,unix
+PACKAGES = lwt,lwt.unix,batteries,unix
 FILES = memcache.ml
 
 LIBNAME = memcache
