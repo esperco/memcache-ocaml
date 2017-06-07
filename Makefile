@@ -53,7 +53,8 @@ $(CMXS): $(OPTOBJS)
 	$(CAMLOPT) -shared -o $(CMXS) $(OPTOBJS)
 
 install:
-	ocamlfind install $(LIBNAME) META $(CMA) $(CMI) $(CMXA) $(CMXS) $(wildcard *.a)
+	ocamlfind install $(LIBNAME) META \
+		$(CMA) $(CMI) $(OPTOBJS) $(CMXA) $(CMXS) $(wildcard *.a)
 
 uninstall:
 	ocamlfind remove $(LIBNAME)
